@@ -1,3 +1,5 @@
+`该项目使用了springcloud+springboot+mybatis-plus+mariadb+redis+vue 的前后端分离架构`
+
 [系统操作](#11)<br>
 * [登录](#12)
 * [退出](#13)<br>
@@ -10,6 +12,11 @@
     &emsp;[id获取单个菜单](#224)<br>
     &emsp;[id删除菜单](#225)<br>
 * [组织模块](#23)
+    &emsp;[组织信息列表](#231)<br>
+    &emsp;[id获取组织信息](#232)<br>
+    &emsp;[添加组织](#233)<br>
+    &emsp;[更新组织](#234)<br>
+    &emsp;[id删除组织](#235)<br>
 * [角色模块](#24)
 * [角色菜单模块](#25)
 * [用户模块](#26)
@@ -649,7 +656,334 @@
         <td>true/false，code=200并且data=true才表示删除成功</td>
     </tr>
 </table>
-<h2 id="22">组织模块</h2>
+<h2 id="23">组织模块</h2>
+<h3 id="231">获取用户组织信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/org/listOrg</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td><table>
+                    <tr>
+                        <td>名称</td>
+                        <td>类型</td>
+                        <td>说明</td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>Long</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>组织名称</td>
+                    </tr>
+                    <tr>
+                        <td>parentId</td>
+                        <td>Long</td>
+                        <td>父机构id</td>
+                    </tr>
+                    <tr>
+                        <td>parentIdList</td>
+                        <td>String</td>
+                        <td>父机构id的集合，隔开</td>
+                    </tr>
+                    <tr>
+                        <td>childList</td>
+                        <td>Array</td>
+                        <td>子组织集合</td>
+                    </tr>
+                </table></td>
+            </tr>
+</table>
+<h3 id="232">id获取组织信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/org/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id (直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td><table>
+            <tr>
+                <td>名称</td>
+                <td>类型</td>
+                <td>说明</td>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>Long</td>
+                <td>主键id</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>String</td>
+                <td>组织名称</td>
+            </tr>
+            <tr>
+                <td>parentId</td>
+                <td>Long</td>
+                <td>父机构id</td>
+            </tr>
+            <tr>
+                <td>parentIdList</td>
+                <td>String</td>
+                <td>父机构id的集合，隔开</td>
+            </tr>
+        </table></td>
+    </tr>
+</table>
+<h3 id="233">添加组织信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/org/insertOrg</td>
+    </tr>
+    <tr>
+        <td>请求方式</td>
+        <td>POST</td>
+    </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentId</td>
+        <td>Long</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>parentIdList</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示添加成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示添加成功</td>
+    </tr>
+</table>
+<h3 id="234">更新组织信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/org/updateOrg</td>
+    </tr>
+    <tr>
+        <td>请求方式</td>
+        <td>PUT</td>
+    </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentId</td>
+        <td>Long</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>parentIdList</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示更新成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示更新成功</td>
+    </tr>
+</table>
+<h3 id="235">id获取组织信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/org/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>DELETE</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id (直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示删除成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示删除成功</td>
+    </tr>
+</table>
 <h2 id="23">角色模块</h2>
 <h2 id="24">角色菜单模块</h2>
 <h2 id="25">用户模块</h2>
