@@ -57,7 +57,7 @@ public class SRoleController extends BaseController {
     }
 
     @PostMapping("/insertRole")
-    public Result insertRole(@RequestBody SRole role, @RequestHeader("Authentication-Token") String token) {
+    public Result insertRole(SRole role, @RequestHeader("Authentication-Token") String token) {
         return ResultUtil.success(roleService.save(role,token));
     }
 

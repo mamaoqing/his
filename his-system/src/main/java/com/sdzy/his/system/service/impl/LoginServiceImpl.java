@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService {
             redisUtil.set(token, user, 500 * 60);
             return ResultUtil.success(token);
         }else{
-            return ResultUtil.error("登陆失败，请联系管理员",1);
+            return ResultUtil.error("密码错误，请重新尝试...",1);
         }
     }
 

@@ -84,7 +84,7 @@ public class SMenuServiceImpl extends ServiceImpl<SMenuMapper, SMenu> implements
     }
 
     @Override
-    @Transactional(rollbackFor = HisException.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteMenuById(Long id, String token) {
         if (StringUtils.isEmpty(id)) {
             throw new HisException(HisExceptionEnum.PARAMS_MISS_ERROR);

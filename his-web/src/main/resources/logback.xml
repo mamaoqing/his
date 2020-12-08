@@ -38,7 +38,7 @@
             <onMismatch>ACCEPT</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/info.%d.log</FileNamePattern>
+            <FileNamePattern>logs/info-web.%d.log</FileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d -->%p %c[%L] --> %msg%n</pattern>
@@ -57,7 +57,7 @@
             <pattern>%d -->%p %c[%L] --> %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/error.%d.log</FileNamePattern>
+            <FileNamePattern>logs/error-web.%d.log</FileNamePattern>
         </rollingPolicy>
     </appender>
     <!-- 全局日志级别 -->

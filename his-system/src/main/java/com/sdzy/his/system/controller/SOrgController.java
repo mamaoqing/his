@@ -52,12 +52,12 @@ public class SOrgController extends BaseController {
     }
 
     @PostMapping("/insertOrg")
-    public Result insertOrg(@RequestHeader("Authentication-Token") String token,@RequestBody SOrg org){
+    public Result insertOrg(@RequestHeader("Authentication-Token") String token,SOrg org){
         return ResultUtil.success(orgService.save(org,token));
     }
 
     @PutMapping("/updateOrg")
-    public Result updateOrg(@RequestHeader("Authentication-Token") String token,@RequestBody SOrg org){
+    public Result updateOrg(@RequestHeader("Authentication-Token") String token,SOrg org){
         return ResultUtil.success(orgService.saveOrUpdate(org,token));
     }
     @DeleteMapping("/{id}")

@@ -26,6 +26,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * <p>
  * 用户表 服务实现类
@@ -51,7 +53,10 @@ public class SUserServiceImpl extends ServiceImpl<SUserMapper, SUser> implements
     @Override
     public Page<SUser> listUser(String token, Map<String, String> map) {
         Page<SUser> sUserPage = null;
-        Integer pageNo = Integer.valueOf(map.get("pageNo"));
+        if(map.isEmpty() || StringUtils.isEmpty(map.get("pageNo"))){
+            throw new HisException(HisExceptionEnum.PAGE_NO_MISS_ERROR);
+        }
+        Integer pageNo = parseInt(map.get("pageNo"));
         Integer size = 10;
         if (StringUtils.isEmpty(pageNo)) {
             throw new HisException(HisExceptionEnum.PAGE_NO_MISS_ERROR);
@@ -81,11 +86,11 @@ public class SUserServiceImpl extends ServiceImpl<SUserMapper, SUser> implements
 
     @Override
     public Page<SUser> listUserComm(String token, Map<String, String> map) {
-        Integer pageNo = Integer.valueOf(map.get("pageNo"));
-        Integer size = 10;
-        if (StringUtils.isEmpty(pageNo)) {
+        if (StringUtils.isEmpty(map.get("pageNo"))) {
             throw new HisException(HisExceptionEnum.PAGE_NO_MISS_ERROR);
         }
+        Integer pageNo = Integer.valueOf(map.get("pageNo"));
+        Integer size = 10;
         if (!StringUtils.isEmpty(map.get("size"))) {
             size = Integer.valueOf(map.get("size"));
         }
@@ -95,7 +100,6 @@ public class SUserServiceImpl extends ServiceImpl<SUserMapper, SUser> implements
     }
 
     @Override
-    @Transactional
     public List<SUser> findOne(Integer id) {
         return userMapper.findOne(id);
     }
@@ -148,7 +152,7 @@ public class SUserServiceImpl extends ServiceImpl<SUserMapper, SUser> implements
     }
 
     @Override
-    @Transactional(rollbackFor = HisException.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean setUserRole(Long userId, Long compId, String roleIds, String token) {
         // 如果参数有一个为空，直接返回
         if (StringUtils.isEmpty(roleIds) || StringUtils.isEmpty(userId)) {
@@ -187,8 +191,14 @@ public class SUserServiceImpl extends ServiceImpl<SUserMapper, SUser> implements
 
     @Override
     public boolean save(SUser user, String token) {
-        if(StringUtils.isEmpty(user.getPassword())){
+        if(StringUtils.isEmpty(user.getPassword())||StringUtils.isEmpty(user.getUserName())){
             throw new HisException(HisExceptionEnum.PARAMS_MISS_ERROR);
+        }
+        QueryWrapper<SUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name",user.getUserName());
+        SUser sUser = userMapper.selectOne(queryWrapper);
+        if(null != sUser){
+            throw new HisException(HisExceptionEnum.USER_EXIST_ERROR);
         }
         SUser users = getUserByToken(token);
         String psw = PasswdEncryption.encptyPasswd(user.getPassword());

@@ -96,7 +96,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRole> implements
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean remove(Long id, String token) throws HisException{
         SUser user = getUserByToken(token);
         if(null == id){
@@ -134,7 +134,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRole> implements
     @Override
     public List<SRole> listRole(Map<String, String> map, Integer pageNo, Integer size, String token) {
         if(StringUtils.isEmpty(pageNo)){
-            throw new HisException(HisExceptionEnum.PARAMS_MISS_ERROR);
+            throw new HisException(HisExceptionEnum.PAGE_NO_MISS_ERROR);
         }
         if(StringUtils.isEmpty(size)){
             size = 10;
@@ -208,7 +208,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRole> implements
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean setRoleMenu(String roleId,String menuIds, String token) {
         // 如果参数有一个为空，直接返回
         if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(menuIds)) {

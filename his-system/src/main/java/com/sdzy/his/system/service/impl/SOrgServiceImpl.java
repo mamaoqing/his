@@ -95,7 +95,7 @@ public class SOrgServiceImpl extends ServiceImpl<SOrgMapper, SOrg> implements SO
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeById(Long id, String token) {
         SUser user = getUserByToken(token);
         if (StringUtils.isEmpty(id)) {
@@ -108,6 +108,9 @@ public class SOrgServiceImpl extends ServiceImpl<SOrgMapper, SOrg> implements SO
             QueryWrapper<SOrg> orgQueryWrapper = new QueryWrapper<>();
             orgQueryWrapper.and(sOrgQueryWrapper -> sOrgQueryWrapper.like("parent_id_list",concat+",").or().eq("parent_id_list",concat));
             int delete = orgMapper.delete(orgQueryWrapper);
+            if(delete <= 0){
+                throw new HisException(HisExceptionEnum.SYSTEM_DELETE_ERROR);
+            }
             userMapper.updateUserOrg(id);
             log.info("组织机构{}删除成功，删除人{}",sOrg.getName(),user.getUserName());
             return true;

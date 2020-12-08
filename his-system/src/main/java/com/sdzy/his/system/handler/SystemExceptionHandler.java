@@ -19,6 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class SystemExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Result handlerException(Exception hisException) {
+
+        log.error(hisException.getMessage(), hisException);
+
+        return ResultUtil.error(hisException.getMessage(), hisException.hashCode());
+    }
+
     @ExceptionHandler(HisException.class)
     @ResponseBody
     public Result handlerException(HisException hisException) {

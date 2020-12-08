@@ -32,13 +32,19 @@ public class Web2SystemController extends BaseController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("login")
+    @PostMapping("login")
     public Result login(String userName,String password){
         Map<String,String> map = new HashMap<>(16);
         map.put("password",password);
         map.put("userName",userName);
         log.info("获取到的map信息是:{}",map);
         return restTemplate.getForObject(serverUrl + "/login/login?userName={userName}&password={password}",Result.class,map);
+    }
+
+    @GetMapping("logout")
+    public Result logout(@RequestHeader("Authentication-Token") String token,HttpServletRequest request){
+
+        return doGetRestTemplate(restTemplate,serverUrl+"/login/logout",request,token);
     }
 
     @GetMapping("menu")
@@ -70,6 +76,6 @@ public class Web2SystemController extends BaseController {
     @PostMapping("/insertUser")
     public Result insertUser(HttpServletRequest request,@RequestHeader("Authentication-Token") String token){
 
-        return super.doPostRestTemplate(restTemplate,serverUrl+"/system/sUser/insertUser",request,token);
+        return super.doPostRestTemplate(restTemplate,serverUrl+"/system/sUser/insertUser",request,token,HttpMethod.POST);
     }
 }

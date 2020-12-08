@@ -29,7 +29,7 @@ public class SRoleMenuServiceImpl extends ServiceImpl<SRoleMenuMapper, SRoleMenu
     private SRoleMenuMapper roleMenuMapper;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean setRoleMenu(Long roleId, String menuIds) {
 
         String[] menuIdArr = menuIds.split(",");
@@ -40,7 +40,7 @@ public class SRoleMenuServiceImpl extends ServiceImpl<SRoleMenuMapper, SRoleMenu
         List<SRoleMenu> sRoleMenus = roleMenuMapper.selectList(query);
         if(!sRoleMenus.isEmpty()){
             int delete = roleMenuMapper.delete(query);
-            if(!(delete > 0)){
+            if(delete <= 0){
                 throw new HisException(HisExceptionEnum.SET_ROLE_MENU_ERROR);
             }
         }
@@ -51,7 +51,7 @@ public class SRoleMenuServiceImpl extends ServiceImpl<SRoleMenuMapper, SRoleMenu
             roleMenu.setRoleId(roleId);
 //            roleMenu.setCompId();
             int insert = roleMenuMapper.insert(roleMenu);
-            if(!(insert>0)){
+            if(insert <= 0){
                 throw new HisException(HisExceptionEnum.SET_ROLE_MENU_ERROR);
             }
         }

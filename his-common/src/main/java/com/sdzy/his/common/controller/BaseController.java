@@ -2,6 +2,8 @@ package com.sdzy.his.common.controller;
 
 import com.sdzy.his.common.entity.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +21,7 @@ import java.util.*;
 @Controller("testBaseController")
 @Slf4j
 public class BaseController {
+
 
 
     /**
@@ -117,7 +120,41 @@ public class BaseController {
             throw new RuntimeException("url请求:" + url + "请求参数有误不是map类型");
         }
         log.info("url请求:" + url);
+        if(map.isEmpty()){
+            return restTemplate.exchange(url, HttpMethod.GET,requestEntity,Result.class).getBody();
+        }
         return restTemplate.exchange(url, HttpMethod.GET,requestEntity,Result.class,map).getBody();
+    }
+
+    protected Result doGetRestTemplate(String url, HttpServletRequest request, String token){
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Authentication-Token",token);
+        StringBuilder stringBuffer = new StringBuilder(url);
+        HttpEntity<String> requestEntity = new HttpEntity<String>("", requestHeaders);
+        Map<String, String> map = this.getParameterMap(request);
+        if (map != null) {
+            Iterator iterator = map.entrySet().iterator();
+            if (iterator.hasNext()) {
+                stringBuffer.append("?");
+                Object element;
+                while (iterator.hasNext()) {
+                    element = iterator.next();
+                    Map.Entry<String, Object> entry = (Map.Entry) element;
+                    //过滤value为null，value为null时进行拼接字符串会变成 "null"字符串
+                    if (entry.getKey() != null) {
+                        stringBuffer.append(entry.getKey()).append("=").append("{").append(entry.getKey()).append("}").append("&");
+                    }
+                    url = stringBuffer.substring(0, stringBuffer.length() - 1);
+                }
+            }
+        } else {
+            throw new RuntimeException("url请求:" + url + "请求参数有误不是map类型");
+        }
+        log.info("url请求:" + url);
+        if(map.isEmpty()){
+            return new RestTemplate().exchange(url, HttpMethod.GET,requestEntity,Result.class).getBody();
+        }
+        return new RestTemplate().exchange(url, HttpMethod.GET,requestEntity,Result.class,map).getBody();
     }
 
     /**
@@ -127,9 +164,8 @@ public class BaseController {
      * @param request 对象内容
      * @param token 用户登录凭证
      */
-    protected Result doPostRestTemplate(RestTemplate restTemplate, String url, HttpServletRequest request, String token){
+    protected Result doPostRestTemplate(RestTemplate restTemplate, String url, HttpServletRequest request, String token,HttpMethod method){
         HttpHeaders headers = new HttpHeaders();
-        HttpMethod method = HttpMethod.POST;
         // 以表单的方式提交
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Authentication-Token",token);
@@ -137,6 +173,18 @@ public class BaseController {
         HttpEntity<MultiValueMap <String, String>> requestEntity = new HttpEntity<>(this.getParams(request), headers);
         return restTemplate.exchange(url,method,requestEntity,Result.class).getBody();
     }
+
+
+    protected Result doPostRestTemplate(String url, HttpServletRequest request, String token,HttpMethod method){
+        HttpHeaders headers = new HttpHeaders();
+        // 以表单的方式提交
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Authentication-Token",token);
+        //将请求头部和参数合成一个请求
+        HttpEntity<MultiValueMap <String, String>> requestEntity = new HttpEntity<>(this.getParams(request), headers);
+        return new RestTemplate().exchange(url,method,requestEntity,Result.class).getBody();
+    }
+
 
     public MultiValueMap getParams(HttpServletRequest request) {
         MultiValueMap ret = new LinkedMultiValueMap();

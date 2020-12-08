@@ -32,13 +32,10 @@ public class SRoleMenuController extends BaseController {
      *
      * @param roleId 角色id
      * @param menuIds 菜单ids
-     * @param flag 添加还是减少
-     * @return
      */
     @PostMapping("/setRoleMenu")
-    public Result setRoleMenu(Long roleId, String menuIds, String flag) {
-        roleMenuService.setRoleMenu(roleId,menuIds);
-        return ResultUtil.error("添加角色菜单信息失败", 1);
+    public Result setRoleMenu(Long roleId, String menuIds) {
+        return ResultUtil.success(roleMenuService.setRoleMenu(roleId,menuIds));
     }
 
 }
