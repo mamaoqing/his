@@ -11,7 +11,8 @@ public enum HisExceptionEnum {
     /**
      * 系统同意错误吗。
      * 5xxxxx系统异常
-     * 4xxxxx参数异常
+     * 4001x参数异常
+     * 4002x用户名密码异常
      * 3xxxxx设置异常
      * 1xxxxx登录问题
      */
@@ -22,6 +23,8 @@ public enum HisExceptionEnum {
     PARAMS_MISS_ERROR ("参数错误",40011),
     PAGE_NO_MISS_ERROR ("参数错误,页码必传",40012),
     USER_EXIST_ERROR ("用户名已经存在",40021),
+    USER_NOT_EXIST_ERROR ("用户名不存在",40022),
+    PASSWORD_ERROR ("密码错误",40023),
     SET_USER_ROLE_ERROR ("设置用户权限异常",30011),
     SET_USER_COMM_ERROR ("设置用户数据权限异常",30012),
     SET_ROLE_MENU_ERROR ("设置角色菜单异常",30013),
@@ -29,9 +32,9 @@ public enum HisExceptionEnum {
     RESET_PASSWORD_ERROR_SYSTEM ("重设密码失败",30010),
     LOGIN_TIME_OUT ("登录失效",10010),
     ;
-    private Integer code;
+    private final Integer code;
 
-    private String msg;
+    private final String msg;
 
     HisExceptionEnum(String msg,Integer code) {
         this.code = code;

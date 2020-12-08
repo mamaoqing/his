@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
         String passwd = map.get("password");
         SUser user = userService.findByUserName(username);
         if(StringUtils.isEmpty(user)){
-            return ResultUtil.error("没有找到用户信息，请重新确认",1);
+            throw new HisException(HisExceptionEnum.USER_NOT_EXIST_ERROR);
         }
         String password = user.getPassword();
         StringBuilder sbf = new StringBuilder(passwd);
@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService {
             redisUtil.set(token, user, 500 * 60);
             return ResultUtil.success(token);
         }else{
-            return ResultUtil.error("密码错误，请重新尝试...",1);
+            throw new HisException(HisExceptionEnum.PASSWORD_ERROR);
         }
     }
 
