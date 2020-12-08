@@ -11,20 +11,29 @@
     &emsp;[添加菜单](#223)<br>
     &emsp;[id获取单个菜单](#224)<br>
     &emsp;[id删除菜单](#225)<br>
-* [组织模块](#23)
+* [组织模块](#23)<br>
     &emsp;[组织信息列表](#231)<br>
     &emsp;[id获取组织信息](#232)<br>
     &emsp;[添加组织](#233)<br>
     &emsp;[更新组织](#234)<br>
     &emsp;[id删除组织](#235)<br>
-* [角色模块](#24)
+* [角色模块](#24)<br>
     &emsp;[角色列表](#241)<br>
     &emsp;[id获取角色](#242)<br>
     &emsp;[添加角色](#243)<br>
     &emsp;[更新角色](#244)<br>
-* [角色菜单模块](#25)
-* [用户模块](#26)
-* [用户角色模块](#27)
+* [角色菜单模块](#25)<br>
+    &emsp;[设置角色菜单](#251)<br>
+* [用户模块](#26)<br>
+    &emsp;[id获取用户信息](#261)<br>
+    &emsp;[用户列表](#262)<br>
+    &emsp;[添加用户](#263)<br>
+    &emsp;[更新用户](#264)<br>
+    &emsp;[id删除用户](#265)<br>
+    &emsp;[修改密码](#266)<br>
+    &emsp;[管理员修改密码](#267)<br>
+* [用户角色模块](#27)<br>
+    &emsp;[查询用户角色](#271)<br>
 <h2 id="11">系统操作</h2>
 <h3 id="12">用户登录</h3>
 <table>
@@ -1289,6 +1298,662 @@
         <td>true/false，code=200并且data=true才表示更新成功</td>
     </tr>
 </table>
-<h2 id="24">角色菜单模块</h2>
-<h2 id="25">用户模块</h2>
-<h2 id="26">用户角色模块</h2>
+<h2 id="25">角色菜单模块</h2>
+<h3 id="251">设置角色菜单</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/roleMenu/setRoleMenu</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>POST</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>roleId</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>menuIds(菜单id，用，隔开。)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示设置成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示设置成功</td>
+    </tr>
+</table>
+<h2 id="26">用户模块</h2>
+<h3 id="261">id获取用户信息</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id(直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>菜单的主键id唯一</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>名称</td>
+                            <td>类型</td>
+                            <td>说明</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>Long</td>
+                            <td>主键id</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                            <td>用户姓名</td>
+                        </tr>
+                        <tr>
+                            <td>compId</td>
+                            <td>Long</td>
+                            <td>公司id</td>
+                        </tr>
+                        <tr>
+                            <td>orgId</td>
+                            <td>Long</td>
+                            <td>组织id</td>
+                        </tr>
+                        <tr>
+                            <td>userName</td>
+                            <td>String</td>
+                            <td>登录名</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>String</td>
+                            <td>密码</td>
+                        </tr>
+                        <tr>
+                            <td>tel</td>
+                            <td>String</td>
+                            <td>电话</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>String</td>
+                            <td>类型</td>
+                        </tr>
+                        <tr>
+                            <td>state</td>
+                            <td>String</td>
+                            <td>状态</td>
+                        </tr>
+                        <tr>
+                            <td>remark</td>
+                            <td>String</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+</table>
+<h3 id="262">用户列表</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/listUser</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>pageNo</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>size</td>
+        <td>Integer</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td><table>
+                    <tr>
+                        <td>名称</td>
+                        <td>类型</td>
+                        <td>说明</td>
+                    </tr>
+                    <tr>
+                        <td>records</td>
+                        <td>Array</td>
+                        <td><table>
+                            <tr>
+                                <td>名称</td>
+                                <td>类型</td>
+                                <td>说明</td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>Long</td>
+                                <td>主键id</td>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td>用户姓名</td>
+                            </tr>
+                            <tr>
+                                <td>compId</td>
+                                <td>Long</td>
+                                <td>公司id</td>
+                            </tr>
+                            <tr>
+                                <td>orgId</td>
+                                <td>Long</td>
+                                <td>组织id</td>
+                            </tr>
+                            <tr>
+                                <td>userName</td>
+                                <td>String</td>
+                                <td>登录名</td>
+                            </tr>
+                            <tr>
+                                <td>password</td>
+                                <td>String</td>
+                                <td>密码</td>
+                            </tr>
+                            <tr>
+                                <td>tel</td>
+                                <td>String</td>
+                                <td>电话</td>
+                            </tr>
+                            <tr>
+                                <td>type</td>
+                                <td>String</td>
+                                <td>类型</td>
+                            </tr>
+                            <tr>
+                                <td>state</td>
+                                <td>String</td>
+                                <td>状态</td>
+                            </tr>
+                            <tr>
+                                <td>remark</td>
+                                <td>String</td>
+                                <td>备注</td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                    <tr>
+                        <td>total</td>
+                        <td>Integer</td>
+                        <td>总条数</td>
+                    </tr>
+                    <tr>
+                        <td>size</td>
+                        <td>Integer</td>
+                        <td>页面大小</td>
+                    </tr>
+                    <tr>
+                        <td>current</td>
+                        <td>Integer</td>
+                        <td>当前页</td>
+                    </tr>
+                    <tr>
+                        <td>pages</td>
+                        <td>Integer</td>
+                        <td>总页数</td>
+                    </tr>
+                </table></td>
+            </tr>
+</table>
+<h3 id="263">添加用户</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/insertUser</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>POST</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>orgId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>userName</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>tel</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示添加成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示添加成功</td>
+    </tr>
+</table>
+<h3 id="264">更新用户</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/updateUser</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>PUT</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>orgId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>userName</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>tel</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示更新成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示更新成功</td>
+    </tr>
+</table>
+<h3 id="265">id删除用户</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/role/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id(直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>菜单的主键id唯一</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+        <td>message</td>
+        <td>错误信息</td>
+    </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示删除成功</td>
+    </tr>
+</table>
+<h3 id="266">修改密码</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/reSetPassword</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>PUT</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>oldPassword</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>newPassword</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示修改成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示修改成功</td>
+    </tr>
+</table>
+<h3 id="267">管理员修改密码</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/user/reSetPasswordAdmin</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>PUT</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示修改成功，其他失败</td>
+    </tr>
+    <tr>
+        <td>message</td>
+        <td>错误信息</td>
+    </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示修改成功</td>
+    </tr>
+</table>
+<h2 id="27">用户角色模块</h2>
+<h3 id="271">查询用户角色</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/userRole/listUserRole</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td></td>
+    </tr>
+</table>
