@@ -18,6 +18,10 @@
     &emsp;[更新组织](#234)<br>
     &emsp;[id删除组织](#235)<br>
 * [角色模块](#24)
+    &emsp;[角色列表](#241)<br>
+    &emsp;[id获取角色](#242)<br>
+    &emsp;[添加角色](#243)<br>
+    &emsp;[更新角色](#244)<br>
 * [角色菜单模块](#25)
 * [用户模块](#26)
 * [用户角色模块](#27)
@@ -984,7 +988,307 @@
         <td>true/false，code=200并且data=true才表示删除成功</td>
     </tr>
 </table>
-<h2 id="23">角色模块</h2>
+<h2 id="24">角色模块</h2>
+<h3 id="241">获取用户角色信息</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/role/listRole</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>pageNo</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>size</td>
+        <td>Integer</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td><table>
+                    <tr>
+                        <td>名称</td>
+                        <td>类型</td>
+                        <td>说明</td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>Long</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>角色名称</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>String</td>
+                        <td>角色类型</td>
+                    </tr>
+                    <tr>
+                        <td>compId</td>
+                        <td>Long</td>
+                        <td>公司id</td>
+                    </tr>
+                    <tr>
+                        <td>state</td>
+                        <td>String</td>
+                        <td>状态</td>
+                    </tr>
+                    <tr>
+                        <td>remark</td>
+                        <td>String</td>
+                        <td>备注</td>
+                    </tr>
+                </table></td>
+            </tr>
+</table>
+<h3 id="242">id获取角色信息</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/role/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id(直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>菜单的主键id唯一</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>名称</td>
+                            <td>类型</td>
+                            <td>说明</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>Long</td>
+                            <td>主键id</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                            <td>角色名称</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>String</td>
+                            <td>角色类型</td>
+                        </tr>
+                        <tr>
+                            <td>compId</td>
+                            <td>Long</td>
+                            <td>公司id</td>
+                        </tr>
+                        <tr>
+                            <td>state</td>
+                            <td>String</td>
+                            <td>状态</td>
+                        </tr>
+                        <tr>
+                            <td>remark</td>
+                            <td>String</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+</table>
+<h3 id="243">添加角色</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/role/insertRole</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>POST</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示添加成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示添加成功</td>
+    </tr>
+</table>
+<h3 id="244">更新角色</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/role/updateRole</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>PUT</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>compId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>remark</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示更新成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示更新成功</td>
+    </tr>
+</table>
 <h2 id="24">角色菜单模块</h2>
 <h2 id="25">用户模块</h2>
 <h2 id="26">用户角色模块</h2>
