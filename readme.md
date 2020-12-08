@@ -1,6 +1,19 @@
 [系统操作](#11)<br>
 * [登录](#12)
-* [退出](#13)
+* [退出](#13)<br>
+
+[系统模块](#21)<br>
+* [菜单模块](#22)<br>
+    &emsp;[获取用户权限菜单](#221)<br>
+    &emsp;[获取菜单列表](#222)<br>
+    &emsp;[添加菜单](#223)<br>
+    &emsp;[id获取单个菜单](#224)<br>
+    &emsp;[id删除菜单](#225)<br>
+* [组织模块](#23)
+* [角色模块](#24)
+* [角色菜单模块](#25)
+* [用户模块](#26)
+* [用户角色模块](#27)
 <h2 id="11">系统操作</h2>
 <h3 id="12">用户登录</h3>
 <table>
@@ -85,4 +98,559 @@
                 <td>具体数据，成功退出无信息</td>
             </tr>
 </table>
-
+<h2 id="21">系统模块</h2>
+<h2 id="22">菜单模块</h2>
+<h3 id="221">获取用户权限菜单</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/get</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td><table>
+                    <tr>
+                        <td>名称</td>
+                        <td>类型</td>
+                        <td>说明</td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>Long</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>菜单名称</td>
+                    </tr>
+                    <tr>
+                        <td>parentId</td>
+                        <td>Long</td>
+                        <td>父菜单id</td>
+                    </tr>
+                    <tr>
+                        <td>parentIdList</td>
+                        <td>String</td>
+                        <td>父菜单id列表用，隔开</td>
+                    </tr>
+                    <tr>
+                        <td>url</td>
+                        <td>String</td>
+                        <td>点击链接</td>
+                    </tr>
+                    <tr>
+                        <td>orderNo</td>
+                        <td>Integer</td>
+                        <td>排序</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>String</td>
+                        <td>类型</td>
+                    </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>String</td>
+                        <td>图标</td>
+                    </tr>
+                    <tr>
+                        <td>state</td>
+                        <td>String</td>
+                        <td>状态</td>
+                    </tr>
+                    <tr>
+                        <td>remark</td>
+                        <td>String</td>
+                        <td>备注</td>
+                    </tr>
+                    <tr>
+                        <td>chirldMenuList</td>
+                        <td>Array</td>
+                        <td>子菜单集合</td>
+                    </tr>
+                </table></td>
+            </tr>
+</table>
+<h3 id="221">获取菜单列表</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/getMenuListUser</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>pageNo</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>size</td>
+        <td>Integer</td>
+        <td>false</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td><table>
+                    <tr>
+                        <td>名称</td>
+                        <td>类型</td>
+                        <td>说明</td>
+                    </tr>
+                    <tr>
+                        <td>records</td>
+                        <td>Array</td>
+                        <td><table>
+                            <tr>
+                                <td>名称</td>
+                                <td>类型</td>
+                                <td>说明</td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>Long</td>
+                                <td>菜单主键id唯一</td>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td>菜单名称</td>
+                            </tr>
+                            <tr>
+                                <td>parentId</td>
+                                <td>Long</td>
+                                <td>父菜单id</td>
+                            </tr>
+                            <tr>
+                                <td>parentIdList</td>
+                                <td>String</td>
+                                <td>父菜单id列表用，隔开</td>
+                            </tr>
+                            <tr>
+                                <td>url</td>
+                                <td>String</td>
+                                <td>点击链接</td>
+                            </tr>
+                            <tr>
+                                <td>orderNo</td>
+                                <td>Integer</td>
+                                <td>排序</td>
+                            </tr>
+                            <tr>
+                                <td>type</td>
+                                <td>String</td>
+                                <td>类型</td>
+                            </tr>
+                            <tr>
+                                <td>icon</td>
+                                <td>String</td>
+                                <td>图标</td>
+                            </tr>
+                            <tr>
+                                <td>state</td>
+                                <td>String</td>
+                                <td>状态</td>
+                            </tr>
+                            <tr>
+                                <td>remark</td>
+                                <td>String</td>
+                                <td>备注</td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                    <tr>
+                        <td>total</td>
+                        <td>Integer</td>
+                        <td>总条数</td>
+                    </tr>
+                    <tr>
+                        <td>size</td>
+                        <td>Integer</td>
+                        <td>页面大小</td>
+                    </tr>
+                    <tr>
+                        <td>current</td>
+                        <td>Integer</td>
+                        <td>当前页</td>
+                    </tr>
+                    <tr>
+                        <td>pages</td>
+                        <td>Integer</td>
+                        <td>总页数</td>
+                    </tr>
+                </table></td>
+            </tr>
+</table>
+<h3 id="222">添加菜单</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/insertMenu</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>POST</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentIdList</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>orderNo</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>icon</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    
+    
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示添加成功</td>
+    </tr>
+</table>
+<h3 id="223">id获取单个菜单</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>GET</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id(直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>菜单的主键id唯一</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200表示成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+                <td>data</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>名称</td>
+                            <td>类型</td>
+                            <td>说明</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>Long</td>
+                            <td>菜单主键id唯一</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                            <td>菜单名称</td>
+                        </tr>
+                        <tr>
+                            <td>parentId</td>
+                            <td>Long</td>
+                            <td>父菜单id</td>
+                        </tr>
+                        <tr>
+                            <td>parentIdList</td>
+                            <td>String</td>
+                            <td>父菜单id列表用，隔开</td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>String</td>
+                            <td>点击链接</td>
+                        </tr>
+                        <tr>
+                            <td>orderNo</td>
+                            <td>Integer</td>
+                            <td>排序</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>String</td>
+                            <td>类型</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>String</td>
+                            <td>图标</td>
+                        </tr>
+                        <tr>
+                            <td>state</td>
+                            <td>String</td>
+                            <td>状态</td>
+                        </tr>
+                        <tr>
+                            <td>remark</td>
+                            <td>String</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+</table>
+<h3 id="224">更新菜单</h3>
+<table>
+    <tr>
+        <td>请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/updateMenu</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>put</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentId</td>
+        <td>Long</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>parentIdList</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>orderNo</td>
+        <td>Integer</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>icon</td>
+        <td>String</td>
+        <td>false</td>
+    </tr>
+    
+    
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示更新成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示更新成功</td>
+    </tr>
+</table>
+<h3 id="225">id删除菜单</h3>
+<table>
+    <tr>
+        <td style="width: 10px">请求连接</td>
+        <td>192.168.0.107:7001/web/system/menu/{id}</td>
+    </tr>
+    <tr>
+            <td>请求方式</td>
+            <td>DELETE</td>
+        </tr>
+       
+</table>
+<table>
+    <tr>
+        <td>参数</td>
+        <td>类型</td>
+        <td>是否必填</td>
+    </tr>
+    <tr>
+        <td>Authentication-Token(该参数需要放在header中)</td>
+        <td>String</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>id(直接拼接在连接后面)</td>
+        <td>Long</td>
+        <td>菜单的主键id唯一</td>
+    </tr>
+</table>
+返回示例：
+<table>
+    <tr>
+        <td>code</td>
+        <td>状态码，200不能表示删除成功，其他失败</td>
+    </tr>
+    <tr>
+            <td>message</td>
+            <td>错误信息</td>
+        </tr>
+    <tr>
+        <td>data</td>
+        <td>true/false，code=200并且data=true才表示删除成功</td>
+    </tr>
+</table>
+<h2 id="22">组织模块</h2>
+<h2 id="23">角色模块</h2>
+<h2 id="24">角色菜单模块</h2>
+<h2 id="25">用户模块</h2>
+<h2 id="26">用户角色模块</h2>
