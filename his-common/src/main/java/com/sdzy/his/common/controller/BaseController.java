@@ -58,37 +58,7 @@ public class BaseController {
     }
 
     /**
-     * 微服务间调用 get
-     * @param restTemplate 微服务调用
-     * @param url 请求地址
-     * @param object 参数
-     */
-    protected Result doGetRestTemplate(RestTemplate restTemplate,String url,Object object){
-        StringBuilder stringBuffer = new StringBuilder(url);
-        if (object instanceof Map) {
-            Iterator iterator = ((Map) object).entrySet().iterator();
-            if (iterator.hasNext()) {
-                stringBuffer.append("?");
-                Object element;
-                while (iterator.hasNext()) {
-                    element = iterator.next();
-                    Map.Entry<String, Object> entry = (Map.Entry) element;
-                    //过滤value为null，value为null时进行拼接字符串会变成 "null"字符串
-                    if (entry.getValue() != null) {
-                        stringBuffer.append(element).append("&");
-                    }
-                    url = stringBuffer.substring(0, stringBuffer.length() - 1);
-                }
-            }
-        } else {
-            throw new RuntimeException("url请求:" + url + "请求参数有误不是map类型");
-        }
-        log.info("url请求:" + url);
-        return restTemplate.getForObject(url, Result.class);
-    }
-
-    /**
-     * 同意get请求
+     * 统一get请求
      * @param restTemplate 请求
      * @param url 请求的连接
      * @param request 请求参数
