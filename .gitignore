@@ -24,11 +24,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 logs
-his-system/src/t
+his-system/src/test
 his-system/target
-his-common/src/t
+his-common/src/test
 his-common/target
-his-web/src/t
+his-web/src/test
 his-web/target
 
 
